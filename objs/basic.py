@@ -73,7 +73,63 @@ class Text:
             rect.center = (cx, cy+(rect.h*m))
         return rects
         
+        
+        
+        
+        
 class Pic:
+    
+    def __init__(self, src:str, center:tuple[int,int], size:tuple[int,int]) -> None:
+        self.surface = pygame.image.load(src)
+        self.rounded_border = pygame.image.load(config.PFP_FRAME_PATH)
+        
+
+            
+        self.rect = self.surface.get_rect() 
+        self.rect.center = center
+        
+        frame_mult = 1.1
+        if size:
+            self.surface = pygame.transform.smoothscale(self.surface, size)
+            self.rounded_border = pygame.transform.smoothscale(self.rounded_border, (size[0]*frame_mult, size[1]*frame_mult))
+            
+        self.surface_pos = (self.rect.center[0]-(size[0]*0.5), self.rect.center[1]-(size[1]*0.5))
+        self.rounded_border_pos = (self.rect.center[0]-(size[0]*frame_mult/2), self.rect.center[1]-(size[1]*frame_mult/2))
+    
+    @staticmethod
+    def download_img(url:str, path:str)->str:
+        urllib.request.urlretrieve(url, path)
+        return path
+    
+    @staticmethod
+    def make_rounded(path):
+        im = Image.open(path)
+        rad = min(im.size)//2
+        circle = Image.new('L', (rad * 2, rad * 2), 0)
+        draw = ImageDraw.Draw(circle)
+        draw.ellipse((0, 0, rad * 2 - 1, rad * 2 - 1), fill=255)
+        alpha = Image.new('L', im.size, 255)
+        w, h = im.size
+        alpha.paste(circle.crop((0, 0, rad, rad)), (0, 0))
+        alpha.paste(circle.crop((0, rad, rad, rad * 2)), (0, h - rad))
+        alpha.paste(circle.crop((rad, 0, rad * 2, rad)), (w - rad, 0))
+        alpha.paste(circle.crop((rad, rad, rad * 2, rad * 2)), (w - rad, h - rad))
+        im.putalpha(alpha)
+        
+        path = os.path.splitext(path)[0] + '.png'
+        im.save(path)
+        return path
+
+    def draw(self, screen:pygame.Surface):
+        screen.blit(self.surface, self.rect.topleft)
+    
+    def draw_with_circle_border(self, screen:pygame.Surface):
+        screen.blit(self.surface, self.surface_pos)
+        screen.blit(self.rounded_border, self.rounded_border_pos)
+
+        
+        
+class Avatar:
     
     def __init__(self, src:str, center:tuple[int,int], size:tuple[int,int]) -> None:
         self.surface = pygame.image.load(src)

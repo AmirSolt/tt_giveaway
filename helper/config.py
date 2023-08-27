@@ -12,6 +12,7 @@ IMAGE_DIR = STATIC_DIR + "imgs/"
 BG_TEMPLATE_PATH = IMAGE_DIR + "bg_template.png"
 DEFAULT_PFP_PATH = IMAGE_DIR + "default_pfp.png"
 PFP_FRAME_PATH = IMAGE_DIR + "pfp_frame.png"
+COIN_PATH = IMAGE_DIR + "coin.png"
 
 SOUNDS_DIR = STATIC_DIR + "sounds/"
 MUSIC_SOUND_PATH = SOUNDS_DIR + "music.mp3"

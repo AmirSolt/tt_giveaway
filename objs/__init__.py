@@ -20,25 +20,25 @@ class Gifter:
         y = int(config.HEIGHT*0.36) - size
         self.rect:pygame.Rect = pygame.Rect(x, y,  size , size) 
          
-        self.name_center = (self.rect.center[0],self.rect.center[1]+span*0.65)
+        self.name_center = (self.rect.center[0],self.rect.center[1]+span*0.6)
         self.name = basic.Text(f"#{ranking}", self.name_center, bg_color=None)
-        self.pfp = basic.Pic(config.DEFAULT_PFP_PATH, self.rect.center, self.rect.size)
+        self.pfp = basic.Avatar(config.DEFAULT_PFP_PATH, self.rect.center, self.rect.size)
     
-    def __abv_name(self, name:str, total_dono:int)->str:
+    def __abv_name(self, name:str, coins:int)->str:
         short_name = name[0:6]
         if len(short_name)<len(name):
             short_name += ".."
-        return f"{self.ranking}.{short_name}\nCoins: {total_dono}"
+        return f"{self.ranking}.{short_name}\n+{coins}"
 
     def set_gifter(self, gifter_info:dict):
         pfp_path = config.CACHED_IMGS_PATH + str(gifter_info["id"]) + ".png"
         if not utils.does_file_exist(pfp_path):
             pfp_path = config.CACHED_IMGS_PATH + str(gifter_info["id"]) + ".jpg"
-            pfp_path = basic.Pic.download_img(gifter_info["pfp_url"], pfp_path)
-            pfp_path = basic.Pic.make_rounded(pfp_path)
+            pfp_path = basic.Avatar.download_img(gifter_info["pfp_url"], pfp_path)
+            pfp_path = basic.Avatar.make_rounded(pfp_path)
     
         self.name = basic.Text(self.__abv_name(gifter_info["name"], gifter_info["total_dono"]), self.name_center)
-        self.pfp = basic.Pic(pfp_path, self.rect.center, self.rect.size)
+        self.pfp = basic.Avatar(pfp_path, self.rect.center, self.rect.size)
 
     def draw(self, screen:pygame.Surface):
         self.pfp.draw_with_circle_border(screen)
@@ -52,6 +52,14 @@ class Gifter:
             "total_dono":total_dono,
             "pfp_url":pfp_url,
         }
+
+
+
+
+
+
+
+
 
 
 class Scene:
