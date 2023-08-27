@@ -28,7 +28,7 @@ class Gifter:
         short_name = name[0:6]
         if len(short_name)<len(name):
             short_name += ".."
-        return f"{self.ranking}.{short_name}\nscore:{total_dono}"
+        return f"{self.ranking}.{short_name}\nCoins: {total_dono}"
 
     def set_gifter(self, gifter_info:dict):
         pfp_path = config.CACHED_IMGS_PATH + str(gifter_info["id"]) + ".png"
