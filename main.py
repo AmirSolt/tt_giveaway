@@ -35,6 +35,23 @@ def game():
             tiktokEvents = []
             
         for event in pygame.event.get():
+            
+            # if event.type == pygame.KEYDOWN:
+            #     if event.key == pygame.K_LEFT:
+            #         tiktokEvents.append(objs.Gifter.interface(
+            #         id=123,
+            #         name="ye",
+            #         total_dono=4,
+            #         pfp_url="https://p16-sign-va.tiktokcdn.com/tos-maliva-avt-0068/1f458821214f7cee2f9498d5bcd8b720~c5_100x100.jpeg?x-expires=1693332000&x-signature=e4vXnLtHqvY53Eo0GD%2F%2Bk69CTBc%3D",
+            #     ))                        
+            #     if event.key == pygame.K_RIGHT:
+            #         tiktokEvents.append(objs.Gifter.interface(
+            #         id=124,
+            #         name="yeye",
+            #         total_dono=1,
+            #         pfp_url="https://p16-sign-useast2a.tiktokcdn.com/tos-useast2a-avt-0068-giso/340d1a40e1a28aa7a7007c02c71b90a4~c5_100x100.jpeg?x-expires=1693332000&x-signature=AiTLgVK%2BOM8tYAP1RJFF1fuU5rk%3D",
+            #     ))  
+            
             if event.type == pygame.QUIT:
                 running = False
             
@@ -47,7 +64,7 @@ def game():
 
 
 # wwyrpick
-tiktok_user ="@crece.sara.follo"
+tiktok_user ="@wwyrpick"
 client: TikTokLiveClient = TikTokLiveClient(unique_id=tiktok_user)
 print(f"Connecting to {tiktok_user}")
 
@@ -87,7 +104,6 @@ async def on_gift(event:GiftEvent):
                 pfp_url=user.avatar.url,
         ))
         
-    print(len(tiktokEvents))
     
 
 
